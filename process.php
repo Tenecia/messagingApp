@@ -3,12 +3,12 @@ include 'database.php';
 
 // check if form submitted 
 if(isset($_POST['submit'])){
-    $user = mysql_real_escape_string($con, $_POST['user']);
-    $message = mysql_real_escape_string($con, $_POST['message']);
+    $user = mysqli_real_escape_string($con, $_POST['user']);
+    $message = mysqli_real_escape_string($con, $_POST['message']);
 
     //Set timezone 
-    date_default_timezone_set('America/Ohio');
-    $time = date('h:i:s a', time());
+    date_default_timezone_set('America/New_York');
+    $time = date('Y-m-d H:i:s');
 
     //Valiate input 
     if(!isset($user) || $user =='' || !isset($message) || $message == ''){
@@ -16,8 +16,8 @@ if(isset($_POST['submit'])){
         header("Location: index.php?error=".urlencode($error));
         exit();
     } else{
-        $query = "INSERT INTO shouts {user, message, time)
-            VALUES {'$user', '$message', '$time'}";
+        $query = "INSERT INTO shouts (user, message, time) 
+        VALUES ('$user', '$message', '$time')";
         
         if(!mysqli_query($con, $query)) {
             die('Error:'.mysqli_error($con));
